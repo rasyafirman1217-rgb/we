@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Science | Ilmu Pengetahuan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f0f0f;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 15, 15, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .logo span {
+      color: #e8b923; /* Warna khas kuning NatGeo */
+    }
+
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      margin-left: 30px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #e8b923;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.7)),
+                  url('https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 0 8%;
+    }
+
+    .hero-content {
+      max-width: 700px;
+    }
+
+    .hero-content .tag {
+      display: inline-block;
+      background: #e8b923;
+      color: #111;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      color: #ccc;
+      margin-bottom: 35px;
+      max-width: 550px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #e8b923;
+      color: #111;
+      padding: 14px 32px;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: #f0c94a;
+      transform: translateY(-2px);
+    }
+
+    /* Featured Section */
+    .featured {
+      padding: 100px 8%;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #e8b923;
+      margin-top: 12px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 25px;
+    }
+
+    .card-content .category {
+      color: #e8b923;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .card-content p {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .card-content a {
+      color: #e8b923;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .card-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      padding: 50px 8%;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    footer .logo {
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.6rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        padding: 0 6%;
+      }
+
+      .featured {
+        padding: 70px 6%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">EXPLORE<span>.</span>SCIENCE</div>
+    <nav>
+      <a href="#">Beranda</a>
+      <a href="#">Artikel</a>
+      <a href="#">Galeri</a>
+      <a href="#">Tentang</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="tag">ILMU PENGETAHUAN</div>
+      <h1>Menjelajahi Keajaiban<br>Alam Semesta</h1>
+      <p>Dari kedalaman laut hingga ujung galaksi — temukan cerita, penemuan, dan keajaiban ilmu pengetahuan yang mengubah cara kita melihat dunia.</p>
+      <a href="#" class="btn">Jelajahi Sekarang</a>
+    </div>
+  </section>
+
+  <!-- Featured Stories -->
+  <section class="featured">
+    <h2 class="section-title">Cerita Unggulan</h2>
+
+    <div class="cards">
+      <!-- Card 1 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=800&q=80" alt="Luar Angkasa">
+        <div class="card-content">
+          <div class="category">Astronomi</div>
+          <h3>Mengungkap Rahasia Lubang Hitam</h3>
+          <p>Para ilmuwan berhasil menangkap gambar detail pertama dari bayangan lubang hitam di pusat galaksi kita.</p>
+          <a href="#">Baca selengkapnya →</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Laut">
+        <div class="card-content">
+          <div class="category">Biologi Laut</div>
+          <h3>Kehidupan di Kedalaman Laut</h3>
+          <p>Makhluk-makhluk aneh dan menakjubkan yang hidup di zona gelap samudra yang belum banyak dijelajahi.</p>
+          <a href="#">Baca selengkapnya →</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="Hutan">
+        <div class="card-content">
+          <div class="category">Lingkungan</div>
+          <h3>Hutan Hujan yang Menghilang</h3>
+          <p>Bagaimana perubahan iklim dan deforestasi mengancam salah satu ekosistem paling penting di bumi.</p>
+          <a href="#">Baca selengkapnya →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="logo">EXPLORE<span>.</span>SCIENCE</div>
+    <p>© 2026 Explore Science. Dibuat untuk penjelajah ilmu pengetahuan.</p>
+  </footer>
+
+</body>
+</html>
