@@ -304,3 +304,479 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Science | Ilmu Pengetahuan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0; width: 100%;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: transparent;
+      z-index: 1000;
+      transition: 0.4s;
+    }
+    header.scrolled {
+      background: rgba(15,15,15,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .logo span { color: #e8b923; }
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      margin-left: 26px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    nav a:hover, nav a.active { color: #e8b923; }
+
+    /* Pages */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.75)),
+                  url('https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 0 8%;
+    }
+    .hero-content { max-width: 680px; }
+    .tag {
+      display: inline-block;
+      background: #e8b923;
+      color: #111;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 30px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.4rem;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #ccc;
+      margin-bottom: 35px;
+    }
+    .btn {
+      display: inline-block;
+      background: #e8b923;
+      color: #111;
+      padding: 14px 32px;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #f0c94a;
+      transform: translateY(-2px);
+    }
+
+    /* Section */
+    .section { padding: 100px 8%; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #e8b923;
+      margin-top: 12px;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+    }
+    .card {
+      background: #1a1a1a;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+    .card:hover img { transform: scale(1.06); }
+    .card-content { padding: 25px; }
+    .category {
+      color: #e8b923;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .card-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      margin-bottom: 12px;
+    }
+    .card-content p {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+    .card-content a {
+      color: #e8b923;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* Article */
+    .article-hero {
+      height: 70vh;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)),
+                  url('https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 8% 80px;
+    }
+    .article-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .meta { color: #bbb; font-size: 0.95rem; }
+    .meta span { margin-right: 20px; }
+    .article-body {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 80px 20px 100px;
+    }
+    .article-body p {
+      font-size: 1.15rem;
+      margin-bottom: 28px;
+      color: #d0d0d0;
+    }
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin: 45px 0 20px;
+    }
+    .article-body blockquote {
+      border-left: 4px solid #e8b923;
+      padding: 15px 25px;
+      margin: 40px 0;
+      background: #1a1a1a;
+      font-style: italic;
+      color: #ccc;
+    }
+
+    /* Page Header */
+    .page-header {
+      padding: 160px 8% 80px;
+      text-align: center;
+      background: #141414;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+    }
+    .page-header p {
+      color: #aaa;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .gallery-grid img:hover { transform: scale(1.03); }
+
+    /* Contact */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .contact-form textarea {
+      height: 150px;
+      resize: vertical;
+    }
+    .contact-form button {
+      background: #e8b923;
+      color: #111;
+      border: none;
+      padding: 14px 36px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .contact-form button:hover { background: #f0c94a; }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      padding: 50px 8%;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #777;
+    }
+    footer .logo { margin-bottom: 12px; display: inline-block; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.3rem; }
+      nav { display: none; }
+      .hero, .section, .article-hero, .page-header {
+        padding-left: 6%;
+        padding-right: 6%;
+      }
+      .article-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="logo" onclick="showPage('home')">EXPLORE<span>.</span>SCIENCE</div>
+    <nav>
+      <a onclick="showPage('home')" id="nav-home" class="active">Beranda</a>
+      <a onclick="showPage('artikel')" id="nav-artikel">Artikel</a>
+      <a onclick="showPage('galeri')" id="nav-galeri">Galeri</a>
+      <a onclick="showPage('tentang')" id="nav-tentang">Tentang</a>
+      <a onclick="showPage('kontak')" id="nav-kontak">Kontak</a>
+    </nav>
+  </header>
+
+  <!-- ==================== HOME ==================== -->
+  <div id="home" class="page active">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="tag">ILMU PENGETAHUAN</div>
+        <h1>Menjelajahi Keajaiban<br>Alam Semesta</h1>
+        <p>Dari kedalaman laut hingga ujung galaksi — temukan cerita dan penemuan yang mengubah cara kita melihat dunia.</p>
+        <button class="btn" onclick="showPage('artikel')">Jelajahi Artikel</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Cerita Unggulan</h2>
+      <div class="cards">
+        <div class="card" onclick="showPage('artikel')">
+          <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=800&q=80" alt="Lubang Hitam">
+          <div class="card-content">
+            <div class="category">Astronomi</div>
+            <h3>Mengungkap Rahasia Lubang Hitam</h3>
+            <p>Para ilmuwan berhasil menangkap gambar detail pertama dari bayangan lubang hitam.</p>
+            <a>Baca selengkapnya →</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Laut">
+          <div class="card-content">
+            <div class="category">Biologi Laut</div>
+            <h3>Kehidupan di Kedalaman Laut</h3>
+            <p>Makhluk-makhluk menakjubkan yang hidup di zona gelap samudra.</p>
+            <a>Baca selengkapnya →</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80" alt="Hutan">
+          <div class="card-content">
+            <div class="category">Lingkungan</div>
+            <h3>Hutan Hujan yang Menghilang</h3>
+            <p>Ancaman perubahan iklim terhadap ekosistem paling penting di bumi.</p>
+            <a>Baca selengkapnya →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== ARTIKEL ==================== -->
+  <div id="artikel" class="page">
+    <section class="article-hero">
+      <div>
+        <div class="tag">ASTRONOMI</div>
+        <h1>Mengungkap Rahasia Lubang Hitam</h1>
+        <div class="meta">
+          <span>15 September 2026</span>
+          <span>Oleh: Tim Explore Science</span>
+          <span>8 menit baca</span>
+        </div>
+      </div>
+    </section>
+
+    <article class="article-body">
+      <p>Lubang hitam selalu menjadi salah satu objek paling misterius di alam semesta. Selama puluhan tahun, para ilmuwan hanya bisa membayangkan bentuknya melalui perhitungan matematis. Kini, berkat kemajuan teknologi, kita mulai bisa “melihat” bayangan dari monster kosmik ini.</p>
+      <p>Pada tahun 2019, Event Horizon Telescope berhasil menangkap gambar pertama dari bayangan lubang hitam di pusat galaksi M87. Gambar itu langsung menjadi sejarah.</p>
+
+      <h2>Apa Sebenarnya Lubang Hitam?</h2>
+      <p>Lubang hitam terbentuk ketika bintang bermassa sangat besar kehabisan bahan bakar dan mengalami keruntuhan gravitasi. Material bintang tersebut terkompresi menjadi titik yang sangat padat.</p>
+
+      <blockquote>
+        “Lubang hitam bukanlah lubang dalam arti sebenarnya, melainkan wilayah ruang-waktu yang kelengkungannya ekstrem.”
+      </blockquote>
+
+      <p>Batas di mana cahaya tidak bisa lagi keluar disebut horizon peristiwa. Di balik batas ini, hukum fisika yang kita kenal mulai kehilangan kemampuan untuk menjelaskan apa yang terjadi.</p>
+
+      <h2>Mengapa Sangat Sulit Diambil Gambarnya?</h2>
+      <p>Lubang hitam sendiri tidak memancarkan cahaya. Yang bisa kita amati adalah bayangan yang terbentuk karena cahaya dari materi di sekitarnya ditekuk oleh gravitasi ekstrem.</p>
+    </article>
+  </div>
+
+  <!-- ==================== GALERI ==================== -->
+  <div id="galeri" class="page">
+    <section class="page-header">
+      <h1>Galeri Visual</h1>
+      <p>Kumpulan gambar menakjubkan dari dunia ilmu pengetahuan dan alam semesta.</p>
+    </section>
+    <section class="section">
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=600&q=80" alt="Galaxy">
+        <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=600&q=80" alt="Black Hole">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Ocean">
+        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=600&q=80" alt="Forest">
+        <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80" alt="Space">
+        <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=600&q=80" alt="Stars">
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== TENTANG ==================== -->
+  <div id="tentang" class="page">
+    <section class="page-header">
+      <h1>Tentang Explore Science</h1>
+      <p>Kami adalah platform yang didedikasikan untuk menyebarkan pengetahuan ilmu pengetahuan dengan cara yang menarik dan mudah dipahami.</p>
+    </section>
+    <section class="section" style="max-width:800px;margin:0 auto;">
+      <p style="font-size:1.15rem;color:#ccc;margin-bottom:25px;">
+        Explore Science lahir dari kecintaan terhadap keajaiban alam semesta dan keinginan untuk membuat ilmu pengetahuan lebih mudah diakses oleh siapa saja.
+      </p>
+      <p style="font-size:1.15rem;color:#ccc;margin-bottom:25px;">
+        Melalui artikel, foto, dan cerita, kami ingin mengajak pembaca untuk terus merasa penasaran dan terinspirasi oleh sains.
+      </p>
+      <p style="font-size:1.15rem;color:#ccc;">
+        Mari bersama-sama menjelajahi keajaiban yang ada di sekitar kita — dari yang terkecil hingga yang terbesar di alam semesta.
+      </p>
+    </section>
+  </div>
+
+  <!-- ==================== KONTAK ==================== -->
+  <div id="kontak" class="page">
+    <section class="page-header">
+      <h1>Hubungi Kami</h1>
+      <p>Punya pertanyaan, saran, atau ingin berkolaborasi? Silakan kirim pesan.</p>
+    </section>
+    <section class="section">
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('Pesan berhasil dikirim! (Demo)');">
+        <input type="text" placeholder="Nama Lengkap" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Pesan Anda..." required></textarea>
+        <button type="submit">Kirim Pesan</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="logo">EXPLORE<span>.</span>SCIENCE</div>
+    <p>© 2026 Explore Science. Dibuat untuk penjelajah ilmu pengetahuan.</p>
+  </footer>
+
+  <script>
+    // Ganti halaman
+    function showPage(pageId) {
+      // Sembunyikan semua page
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      // Tampilkan page yang dipilih
+      document.getElementById(pageId).classList.add('active');
+
+      // Update navigasi aktif
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      const navItem = document.getElementById('nav-' + pageId);
+      if (navItem) navItem.classList.add('active');
+
+      // Scroll ke atas
+      window.scrollTo(0, 0);
+    }
+
+    // Header berubah saat scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
